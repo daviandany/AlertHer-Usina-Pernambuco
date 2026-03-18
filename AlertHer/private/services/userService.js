@@ -39,6 +39,17 @@ export async function getById ({ id }) {
     return user
 }
 
+export async function getAllUsers() {
+    const { data: users, error } = await supabase
+        .from('users')
+        .select('id', 'name', 'email')
+
+    if (error) throw new Error(error.message);
+
+    return users;
+
+}
+
 export async function login ({ email, password }) {
     const normalizedEmail = email.toLowerCase().trim()  
 
