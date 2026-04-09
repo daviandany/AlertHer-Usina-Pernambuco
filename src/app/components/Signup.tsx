@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Shield, Mail, Lock, User, CreditCard, Eye, EyeOff } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import { registerUser } from "../lib/auth";
 
 export function Signup() {
   const [showPassword, setShowPassword] = useState(false);
@@ -14,6 +15,9 @@ export function Signup() {
     password: "",
   });
   const [acceptTerms, setAcceptTerms] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -38,12 +42,22 @@ export function Signup() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage("");
+    setSuccessMessage("");
+
     if (!acceptTerms) {
-      alert("Você precisa aceitar os termos e condições");
+      setErrorMessage("Você precisa aceitar os termos e condições.");
       return;
     }
-    console.log("Cadastro:", formData);
-    // Lógica de cadastro aqui
+
+    const result = registerUser(formData);
+    if (!result.ok) {
+      setErrorMessage(result.error);
+      return;
+    }
+
+    setSuccessMessage("Conta criada com sucesso! Redirecionando para o login...");
+    setTimeout(() => navigate("/login"), 1200);
   };
 
   const handleGoogleSignup = () => {
@@ -109,6 +123,17 @@ export function Signup() {
 
           {/* Signup Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
+            {errorMessage ? (
+              <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                {errorMessage}
+              </div>
+            ) : null}
+
+            {successMessage ? (
+              <div className="rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+                {successMessage}
+              </div>
+            ) : null}
             <div>
               <Label htmlFor="fullName" className="text-gray-700 mb-2 block">
                 Nome Completo <span className="text-red-500">*</span>

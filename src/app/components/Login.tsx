@@ -1,20 +1,33 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Shield, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { loginUser } from "../lib/auth";
 
 export function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login:", { email, password });
-    // Lógica de autenticação aqui
+    setErrorMessage("");
+    setSuccessMessage("");
+
+    const result = loginUser(email, password);
+    if (!result.ok) {
+      setErrorMessage(result.error);
+      return;
+    }
+
+    setSuccessMessage(`Bem-vinda, ${result.user.fullName.split(" ")[0]}! Redirecionando...`);
+    setTimeout(() => navigate("/"), 1000);
   };
 
   const handleGoogleLogin = () => {
@@ -102,6 +115,17 @@ export function Login() {
 
             {/* Login Form */}
             <form onSubmit={handleSubmit} className="space-y-5">
+              {errorMessage ? (
+                <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                  {errorMessage}
+                </div>
+              ) : null}
+
+              {successMessage ? (
+                <div className="rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+                  {successMessage}
+                </div>
+              ) : null}
               <div>
                 <Label htmlFor="email" className="text-gray-700 mb-2 block">
                   E-mail
