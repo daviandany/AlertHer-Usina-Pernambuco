@@ -4,15 +4,23 @@ import { Shield, Mail, ArrowLeft, CheckCircle } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import { findUserByEmail } from "../lib/auth";
 
 export function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Recuperação de senha para:", email);
-    // Lógica de recuperação de senha aqui
+    setErrorMessage("");
+
+    const user = findUserByEmail(email);
+    if (!user) {
+      setErrorMessage("Não encontramos uma conta com este e-mail.");
+      return;
+    }
+
     setIsSubmitted(true);
   };
 
@@ -89,6 +97,11 @@ export function ForgotPassword() {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
+            {errorMessage ? (
+              <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                {errorMessage}
+              </div>
+            ) : null}
             <div>
               <Label htmlFor="email" className="text-gray-700 mb-2 block">
                 E-mail cadastrado
