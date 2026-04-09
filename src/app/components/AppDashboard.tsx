@@ -1,11 +1,15 @@
+import {
+  dashboardBackgroundImage,
+  dashboardMetrics,
+} from "../domain/content/dashboardContent";
+
 export function AppDashboard() {
   return (
     <section className="relative h-[calc(100vh-6rem)] overflow-hidden bg-[#f8f9ff]">
       <div
         className="absolute inset-0 bg-cover bg-center opacity-40 grayscale"
         style={{
-          backgroundImage:
-            "url('https://lh3.googleusercontent.com/aida-public/AB6AXuA1QMxWc2oxUqf-v1i80QxHciUZC9a52bQ_FOD07-o4YIggRIEwFXKKLMalH37lQFHkpmF2OMdXdOjmMu_DpLwU1DvzQCzzSgmXFM8PIqBNcTnvMFnFAR_xbIETEdncvC6W3nInLORHk0yfOmQTjC0l1iD1XKoZtFoekERrARjg_BbVgDNtUUgyzdF-3StD2-oTMAwfTh8U80-DDIG1IugkJ-rjDr5kv_U0TitxOeHFYNKm_NUXDYz99NGsKEYZROc0mGQC8VwL26A')",
+          backgroundImage: `url('${dashboardBackgroundImage}')`,
         }}
       />
 
@@ -16,14 +20,12 @@ export function AppDashboard() {
             Você está em uma zona monitorada. 4 contatos de confiança estão ativos no momento.
           </p>
           <div className="grid grid-cols-2 gap-3 text-sm">
-            <div className="rounded-xl bg-[#eff4ff] p-3">
-              <div className="text-[10px] font-bold uppercase text-slate-500">Tempo de Trajeto</div>
-              <div className="font-bold text-purple-700">12 min restantes</div>
-            </div>
-            <div className="rounded-xl bg-[#eff4ff] p-3">
-              <div className="text-[10px] font-bold uppercase text-slate-500">Bateria</div>
-              <div className="font-bold text-purple-700">84%</div>
-            </div>
+            {dashboardMetrics.map((metric) => (
+              <div key={metric.id} className="rounded-xl bg-[#eff4ff] p-3">
+                <div className="text-[10px] font-bold uppercase text-slate-500">{metric.label}</div>
+                <div className="font-bold text-purple-700">{metric.value}</div>
+              </div>
+            ))}
           </div>
         </div>
 
