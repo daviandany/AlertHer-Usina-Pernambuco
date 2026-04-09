@@ -27,7 +27,7 @@ export function Login() {
     }
 
     setSuccessMessage(`Bem-vinda, ${result.user.fullName.split(" ")[0]}! Redirecionando...`);
-    setTimeout(() => navigate("/"), 1000);
+    setTimeout(() => navigate("/app/dashboard"), 1000);
   };
 
   const handleGoogleLogin = () => {
