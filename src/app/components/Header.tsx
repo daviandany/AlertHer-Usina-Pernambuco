@@ -1,11 +1,30 @@
 import { Shield, Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
-import { useState } from "react";
+import { useState, type MouseEvent } from "react";
 import { Link, useLocation } from "react-router";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+
+  const handleSectionClick = (
+    event: MouseEvent<HTMLAnchorElement>,
+    sectionId: string
+  ) => {
+    if (location.pathname !== "/") {
+      return;
+    }
+
+    event.preventDefault();
+
+    const section = document.getElementById(sectionId);
+    if (!section) {
+      return;
+    }
+
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
+    setMobileMenuOpen(false);
+  };
   
   // Don't show header on auth pages
   if (location.pathname === "/login" || location.pathname === "/cadastro" || location.pathname === "/esqueci-senha") {
@@ -26,13 +45,25 @@ export function Header() {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-8">
-            <a href="#sobre" className="text-gray-700 hover:text-purple-600 transition-colors">
+            <a
+              href="#sobre"
+              onClick={(event) => handleSectionClick(event, "sobre")}
+              className="text-gray-700 hover:text-purple-600 transition-all duration-300 hover:-translate-y-0.5"
+            >
               Sobre
             </a>
-            <a href="#recursos" className="text-gray-700 hover:text-purple-600 transition-colors">
+            <a
+              href="#recursos"
+              onClick={(event) => handleSectionClick(event, "recursos")}
+              className="text-gray-700 hover:text-purple-600 transition-all duration-300 hover:-translate-y-0.5"
+            >
               Recursos
             </a>
-            <a href="#ajuda" className="text-gray-700 hover:text-purple-600 transition-colors">
+            <a
+              href="#ajuda"
+              onClick={(event) => handleSectionClick(event, "ajuda")}
+              className="text-gray-700 hover:text-purple-600 transition-all duration-300 hover:-translate-y-0.5"
+            >
               Ajuda
             </a>
             <Link to="/login" className="text-gray-700 hover:text-purple-600 transition-colors">
@@ -59,19 +90,22 @@ export function Header() {
           <div className="md:hidden py-4 space-y-3 border-t border-purple-100">
             <a
               href="#sobre"
-              className="block text-gray-700 hover:text-purple-600 transition-colors py-2"
+              onClick={(event) => handleSectionClick(event, "sobre")}
+              className="block text-gray-700 hover:text-purple-600 transition-all duration-300 py-2"
             >
               Sobre
             </a>
             <a
               href="#recursos"
-              className="block text-gray-700 hover:text-purple-600 transition-colors py-2"
+              onClick={(event) => handleSectionClick(event, "recursos")}
+              className="block text-gray-700 hover:text-purple-600 transition-all duration-300 py-2"
             >
               Recursos
             </a>
             <a
               href="#ajuda"
-              className="block text-gray-700 hover:text-purple-600 transition-colors py-2"
+              onClick={(event) => handleSectionClick(event, "ajuda")}
+              className="block text-gray-700 hover:text-purple-600 transition-all duration-300 py-2"
             >
               Ajuda
             </a>
