@@ -105,3 +105,20 @@ export function findUserByEmail(email: string): Omit<LocalUser, "password"> | nu
   const user = users.find((storedUser) => normalizeEmail(storedUser.email) === normalizedEmail);
   return user ? sanitizeUser(user) : null;
 }
+
+export function getCurrentUser(): Omit<LocalUser, "password"> | null {
+  try {
+    const raw = localStorage.getItem(CURRENT_USER_STORAGE_KEY);
+    if (!raw) {
+      return null;
+    }
+
+    return JSON.parse(raw) as Omit<LocalUser, "password">;
+  } catch {
+    return null;
+  }
+}
+
+export function isAuthenticated(): boolean {
+  return getCurrentUser() !== null;
+}

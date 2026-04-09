@@ -9,6 +9,7 @@ import { AppDashboard } from "./components/AppDashboard";
 import { TrustedContactsPage } from "./components/TrustedContactsPage";
 import { ProtectionNetworkPage } from "./components/ProtectionNetworkPage";
 import { HelpCenterPage } from "./components/HelpCenterPage";
+import { RequireAuth } from "./components/RequireAuth";
 
 export const router = createBrowserRouter([
   {
@@ -34,28 +35,33 @@ export const router = createBrowserRouter([
     Component: ForgotPassword,
   },
   {
-    path: "/app",
-    Component: SafeHerAppLayout,
+    Component: RequireAuth,
     children: [
       {
-        index: true,
-        Component: AppDashboard,
-      },
-      {
-        path: "dashboard",
-        Component: AppDashboard,
-      },
-      {
-        path: "contatos",
-        Component: TrustedContactsPage,
-      },
-      {
-        path: "rede",
-        Component: ProtectionNetworkPage,
-      },
-      {
-        path: "ajuda",
-        Component: HelpCenterPage,
+        path: "/app",
+        Component: SafeHerAppLayout,
+        children: [
+          {
+            index: true,
+            Component: AppDashboard,
+          },
+          {
+            path: "dashboard",
+            Component: AppDashboard,
+          },
+          {
+            path: "contatos",
+            Component: TrustedContactsPage,
+          },
+          {
+            path: "rede",
+            Component: ProtectionNetworkPage,
+          },
+          {
+            path: "ajuda",
+            Component: HelpCenterPage,
+          },
+        ],
       },
     ],
   },
