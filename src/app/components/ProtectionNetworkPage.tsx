@@ -1,8 +1,4 @@
-const places = [
-  { type: "Delegacia", name: "1ª Delegacia de Defesa da Mulher (DDM)", distance: "0.8 km" },
-  { type: "ONG", name: "Casa da Mulher Brasileira", distance: "1.5 km" },
-  { type: "Hospital", name: "Hospital Pérola Byington", distance: "2.1 km" },
-];
+import { protectionPlaces } from "../domain/content/dashboardContent";
 
 export function ProtectionNetworkPage() {
   return (
@@ -19,8 +15,8 @@ export function ProtectionNetworkPage() {
         <h1 className="text-2xl font-black">Locais Próximos</h1>
         <p className="mb-6 text-sm text-slate-500">Exibindo 12 pontos de segurança em São Paulo</p>
         <div className="space-y-4">
-          {places.map((place) => (
-            <article key={place.name} className="rounded-xl border border-slate-200 p-4">
+          {protectionPlaces.map((place) => (
+            <article key={place.id} className="rounded-xl border border-slate-200 p-4">
               <div className="mb-2 flex items-center justify-between">
                 <span className="rounded bg-purple-100 px-2 py-1 text-[10px] font-black uppercase text-purple-700">
                   {place.type}

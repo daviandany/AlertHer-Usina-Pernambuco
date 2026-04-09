@@ -1,8 +1,4 @@
-const contacts = [
-  { name: "Ana Paula", relation: "Mãe", level: "Nível 1", action: "Ligar", online: true },
-  { name: "Marcos Silva", relation: "Irmão", level: "Nível 1", action: "Mensagem", online: false },
-  { name: "Bia Santos", relation: "Amiga", level: "Nível 2", action: "Localização", online: true },
-];
+import { trustedContacts } from "../domain/content/dashboardContent";
 
 export function TrustedContactsPage() {
   return (
@@ -13,8 +9,8 @@ export function TrustedContactsPage() {
       </p>
 
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {contacts.map((contact) => (
-          <article key={contact.name} className="rounded-2xl bg-white p-6 shadow-sm transition hover:shadow-xl">
+        {trustedContacts.map((contact) => (
+          <article key={contact.id} className="rounded-2xl bg-white p-6 shadow-sm transition hover:shadow-xl">
             <div className="mb-4 flex items-start justify-between">
               <div>
                 <h2 className="text-xl font-bold">{contact.name}</h2>
