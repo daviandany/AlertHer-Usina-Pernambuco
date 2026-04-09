@@ -5,7 +5,7 @@ import referenceImage from "../../assets/f95e5fe9b0457ec50bfeef6a301abb74de85cdc
 
 export function HeroSection() {
   return (
-    <section className="relative pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section id="sobre" className="relative pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden scroll-mt-24">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
