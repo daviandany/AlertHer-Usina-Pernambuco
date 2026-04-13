@@ -5,11 +5,11 @@ import { Login } from "./components/Login";
 import { Signup } from "./components/Signup";
 import { ForgotPassword } from "./components/ForgotPassword";
 import { SafeHerAppLayout } from "./components/SafeHerAppLayout";
-import { AppDashboard } from "./components/AppDashboard";
-import { TrustedContactsPage } from "./components/TrustedContactsPage";
-import { ProtectionNetworkPage } from "./components/ProtectionNetworkPage";
-import { HelpCenterPage } from "./components/HelpCenterPage";
 import { RequireAuth } from "./components/RequireAuth";
+import { EmergencyPage } from "./components/EmergencyPage";
+import { SafetyTipsPage } from "./components/SafetyTipsPage";
+import { ResourcesPage } from "./components/ResourcesPage";
+import { SafeLocationsPage } from "./components/SafeLocationsPage";
 
 export const router = createBrowserRouter([
   {
@@ -43,23 +43,39 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            Component: AppDashboard,
+            Component: EmergencyPage,
+          },
+          {
+            path: "emergencia",
+            Component: EmergencyPage,
+          },
+          {
+            path: "dicas",
+            Component: SafetyTipsPage,
+          },
+          {
+            path: "recursos",
+            Component: ResourcesPage,
+          },
+          {
+            path: "locais",
+            Component: SafeLocationsPage,
           },
           {
             path: "dashboard",
-            Component: AppDashboard,
+            Component: EmergencyPage,
           },
           {
             path: "contatos",
-            Component: TrustedContactsPage,
+            Component: SafetyTipsPage,
           },
           {
             path: "rede",
-            Component: ProtectionNetworkPage,
+            Component: ResourcesPage,
           },
           {
             path: "ajuda",
-            Component: HelpCenterPage,
+            Component: SafeLocationsPage,
           },
         ],
       },
