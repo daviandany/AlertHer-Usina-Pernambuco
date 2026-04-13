@@ -61,6 +61,22 @@ export const router = createBrowserRouter([
             path: "locais",
             Component: SafeLocationsPage,
           },
+          {
+            path: "dashboard",
+            Component: EmergencyPage,
+          },
+          {
+            path: "contatos",
+            Component: SafetyTipsPage,
+          },
+          {
+            path: "rede",
+            Component: ResourcesPage,
+          },
+          {
+            path: "ajuda",
+            Component: SafeLocationsPage,
+          },
         ],
       },
     ],
