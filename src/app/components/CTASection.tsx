@@ -17,12 +17,12 @@ export function CTASection() {
             </div>
 
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Pronta Para Se Sentir Mais Segura?
+              Quer mais segurança no seu dia a dia?
             </h2>
             
             <p className="text-lg text-purple-100 mb-8 max-w-2xl mx-auto">
-              Junte-se a milhares de mulheres que já estão usando o SafeHer 
-              para viver com mais confiança e tranquilidade.
+              O SafeHer foi pensado para mulheres e é gratuito.
+              Tenha acesso rápido a ajuda, orientação e recursos de proteção.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -43,7 +43,7 @@ export function CTASection() {
             </div>
 
             <p className="text-sm text-purple-100 mt-6">
-              ✓ Grátis para começar • ✓ Sem cartão de crédito • ✓ Privacidade garantida
+              ✓ Gratuito para mulheres • ✓ Apoio rápido • ✓ Privacidade garantida
             </p>
           </div>
         </div>
