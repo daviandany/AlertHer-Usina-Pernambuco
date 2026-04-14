@@ -41,7 +41,7 @@ export function HeroSection() {
 
             <div className="space-y-3">
               <Link to="/cadastro">
-                <Button className="w-full sm:w-auto bg-gradient-to-r from-sky-500 via-purple-500 to-fuchsia-500 hover:opacity-95 text-white rounded-2xl px-8 py-6 text-lg font-bold shadow-[0_14px_30px_rgba(168,85,247,0.35)]">
+                <Button className="w-full sm:w-auto bg-gradient-to-r from-sky-500 via-purple-500 to-fuchsia-500 hover:opacity-100 text-white rounded-2xl px-8 py-6 text-lg font-bold shadow-[0_14px_30px_rgba(168,85,247,0.35)] hover:shadow-[0_20px_46px_rgba(217,70,239,0.55)] hover:-translate-y-0.5 transition-all duration-300">
                   Comece agora. É GRÁTIS →
                 </Button>
               </Link>
