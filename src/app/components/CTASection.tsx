@@ -35,7 +35,7 @@ export function CTASection() {
               <Link to="/login">
                 <Button 
                   variant="outline" 
-                  className="border-2 border-white text-white hover:bg-white/10 rounded-full px-8 py-6 text-lg"
+                  className="border-2 border-white/90 !bg-transparent text-white hover:!bg-white hover:text-purple-700 rounded-full px-8 py-6 text-lg transition-all duration-300"
                 >
                   Saiba Mais
                 </Button>
