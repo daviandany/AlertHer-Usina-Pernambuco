@@ -45,7 +45,7 @@ export function HeroSection() {
                   Comece agora. É GRÁTIS →
                 </Button>
               </Link>
-              <p className="text-sm text-slate-500">É gratuito para mulheres. Simples de usar quando você mais precisar.</p>
+              <p className="text-sm text-slate-500">Gratuito e pensado para ajudar mulheres com apoio rápido quando mais precisarem.</p>
             </div>
 
             <div className="absolute -top-10 -left-10 opacity-20">

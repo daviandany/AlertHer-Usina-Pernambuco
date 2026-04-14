@@ -21,7 +21,7 @@ export function CTASection() {
             </h2>
             
             <p className="text-lg text-purple-100 mb-8 max-w-2xl mx-auto">
-              O SafeHer foi pensado para mulheres e é gratuito.
+              O SafeHer é gratuito e foi criado para ajudar mulheres.
               Tenha acesso rápido a ajuda, orientação e recursos de proteção.
             </p>
 
@@ -43,7 +43,7 @@ export function CTASection() {
             </div>
 
             <p className="text-sm text-purple-100 mt-6">
-              ✓ Gratuito para mulheres • ✓ Apoio rápido • ✓ Privacidade garantida
+              ✓ Feito para ajudá-las • ✓ Apoio rápido • ✓ Privacidade garantida
             </p>
           </div>
         </div>
