@@ -183,6 +183,8 @@ const mockLocations: SafeLocation[] = [
     openHours: "Seg-Sex: 8h-18h",
     rating: 4.5,
     distanceKm: 1.5,
+    latitude: -8.0617353,
+    longitude: -34.8770008,
   },
   {
     id: "loc-2",
@@ -193,6 +195,8 @@ const mockLocations: SafeLocation[] = [
     openHours: "Seg-Sex: 8h-17h",
     rating: 4.8,
     distanceKm: 2.1,
+    latitude: -8.0578387,
+    longitude: -34.8890854,
   },
   {
     id: "loc-3",
@@ -203,6 +207,8 @@ const mockLocations: SafeLocation[] = [
     openHours: "24 horas",
     rating: 4.7,
     distanceKm: 3.4,
+    latitude: -8.0465424,
+    longitude: -34.8849404,
   },
   {
     id: "loc-4",
@@ -213,6 +219,8 @@ const mockLocations: SafeLocation[] = [
     openHours: "Seg-Sex: 9h-17h",
     rating: 4.4,
     distanceKm: 2.9,
+    latitude: -8.047155,
+    longitude: -34.8858261,
   },
 ];
 

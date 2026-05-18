@@ -1,3 +1,4 @@
+import { useMemo, useState } from "react";
 import { LocateFixed, MapPin, Navigation, Phone, Search, Star } from "lucide-react";
 import { useLocations, type LocationFilter } from "../../../hooks/useLocations";
 import type { SafeLocation } from "../../../types/safeher";
@@ -19,24 +20,76 @@ const iconColorByType: Record<SafeLocation["type"], string> = {
 
 export function SafeLocationsModule() {
   const { locations, query, setQuery, filter, setFilter } = useLocations();
+  const [activeLocationId, setActiveLocationId] = useState<string | null>(null);
+
+  const activeLocation = useMemo(() => {
+    if (locations.length === 0) return null;
+
+    return locations.find((location) => location.id === activeLocationId) ?? locations[0];
+  }, [activeLocationId, locations]);
+
+  const mapSrc = useMemo(() => {
+    if (!activeLocation) return "";
+
+    const delta = 0.015;
+    const left = activeLocation.longitude - delta;
+    const right = activeLocation.longitude + delta;
+    const top = activeLocation.latitude + delta;
+    const bottom = activeLocation.latitude - delta;
+    const marker = `${activeLocation.latitude},${activeLocation.longitude}`;
+    const bbox = `${left},${bottom},${right},${top}`;
+
+    return `https://www.openstreetmap.org/export/embed.html?bbox=${encodeURIComponent(
+      bbox,
+    )}&layer=mapnik&marker=${encodeURIComponent(marker)}`;
+  }, [activeLocation]);
+
+  const handleUseMyLocation = () => {
+    if (!("geolocation" in navigator)) return;
+
+    navigator.geolocation.getCurrentPosition((position) => {
+      const nearestLocation = locations.reduce<SafeLocation | null>((nearest, current) => {
+        if (!nearest) return current;
+
+        const nearestDistance =
+          (nearest.latitude - position.coords.latitude) ** 2 +
+          (nearest.longitude - position.coords.longitude) ** 2;
+        const currentDistance =
+          (current.latitude - position.coords.latitude) ** 2 +
+          (current.longitude - position.coords.longitude) ** 2;
+
+        return currentDistance < nearestDistance ? current : nearest;
+      }, null);
+
+      if (nearestLocation) {
+        setActiveLocationId(nearestLocation.id);
+      }
+    });
+  };
 
   return (
     <section className="space-y-6">
       <article className="relative overflow-hidden rounded-3xl border border-purple-100 bg-gradient-to-br from-purple-50 to-white p-6 shadow-sm">
         <div className="mb-4 flex items-center justify-between">
           <h3 className="font-semibold text-slate-800">Mapa Interativo</h3>
-          <button className="flex items-center gap-2 rounded-full bg-purple-700 px-4 py-2 text-sm font-semibold text-white">
+          <button
+            onClick={handleUseMyLocation}
+            className="flex items-center gap-2 rounded-full bg-purple-700 px-4 py-2 text-sm font-semibold text-white"
+          >
             <LocateFixed className="h-4 w-4" />
             Usar minha localização
           </button>
         </div>
-        <div className="relative h-56 rounded-2xl bg-white/80 p-2">
-          <div className="absolute left-[14%] top-[25%] text-purple-700"><MapPin /></div>
-          <div className="absolute left-[62%] top-[20%] text-purple-700"><MapPin /></div>
-          <div className="absolute left-[35%] top-[62%] text-purple-700"><MapPin /></div>
-          <div className="absolute left-[75%] top-[68%] text-purple-700"><MapPin /></div>
-          <div className="absolute inset-0 rounded-2xl border border-dashed border-purple-200" />
-        </div>
+        {mapSrc ? (
+          <div className="overflow-hidden rounded-2xl border border-purple-200 bg-white">
+            <iframe
+              title="Mapa de locais seguros"
+              src={mapSrc}
+              className="h-56 w-full"
+              loading="lazy"
+            />
+          </div>
+        ) : null}
       </article>
 
       <div className="space-y-4">
@@ -90,10 +143,18 @@ export function SafeLocationsModule() {
                 </div>
               </div>
               <div className="flex flex-wrap items-center gap-2">
-                <button className="flex items-center gap-2 rounded-xl bg-purple-700 px-3 py-2 text-sm font-medium text-white">
+                <a
+                  onClick={() => setActiveLocationId(location.id)}
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+                    `${location.latitude},${location.longitude}`,
+                  )}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 rounded-xl bg-purple-700 px-3 py-2 text-sm font-medium text-white"
+                >
                   <Navigation className="h-4 w-4" />
                   Ir para o local
-                </button>
+                </a>
                 <a
                   href={`tel:${location.phone.replace(/\D/g, "")}`}
                   className="flex items-center gap-2 rounded-xl border border-purple-300 px-3 py-2 text-sm font-medium text-purple-700"

@@ -62,4 +62,6 @@ export interface SafeLocation {
   openHours: string;
   rating: number;
   distanceKm: number;
+  latitude: number;
+  longitude: number;
 }
